@@ -14,16 +14,16 @@ public class ConfigPropertiesReader {
     }
 //Choosing severitylevel for logger
     public static SeverityLevel getSeverityLevel(){
-        if(getProperties("severityLevel") == null){
+        if(getProperties("severityLevel").isBlank()){
             return SeverityLevel.TRACE;
         } else
-        return SeverityLevel.valueOf(getProperties("severityLevel"));
+        return SeverityLevel.valueOf(getProperties("severityLevel").toUpperCase());
     }
 //Choosing output type for logs
     public static OutputType getOutputType(){
-        if(getProperties("output") == null){
+        if(getProperties("output").isBlank()){
             return OutputType.CONSOLE;
         } else
-        return OutputType.valueOf(getProperties("output"));
+        return OutputType.valueOf(getProperties("output").toUpperCase());
     }
 }
