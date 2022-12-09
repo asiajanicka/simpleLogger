@@ -36,13 +36,59 @@ public class SimpleLogger {
                 DateFormat.format(LocalDateTime.now()), level, className, message);
     }
 
-    public void writeLog(SeverityLevel actualLevel, String message) {
-        // add severity level validation
-        logWriter.write(formatLog(actualLevel, message));
+    private void writeLog(SeverityLevel actualLevel, String message) {
+        if (validateLevel(actualLevel)) {
+            logWriter.write(formatLog(actualLevel, message));
+        }
     }
 
-    public void writeLog(SeverityLevel actualLevel, String message, Throwable t) {
-        // add severity level validation
-        logWriter.write(formatLog(actualLevel, message), t);
+    private void writeLog(SeverityLevel actualLevel, String message, Throwable t) {
+        if (validateLevel(actualLevel)) {
+            logWriter.write(formatLog(actualLevel, message), t);
+        }
+    }
+
+    private boolean validateLevel(SeverityLevel actualLevel) {
+        return actualLevel.getValue() <= ConfigPropertiesReader.getSeverityLevel().getValue();
+    }
+
+    public void fatal(String message) {
+        writeLog(SeverityLevel.FATAL, message);
+    }
+
+    public void fatal(String message, Throwable t) {
+        writeLog(SeverityLevel.FATAL, message, t);
+    }
+
+    public void error(String message) {
+        writeLog(SeverityLevel.ERROR, message);
+    }
+
+    public void error(String message, Throwable t) {
+        writeLog(SeverityLevel.ERROR, message, t);
+    }
+
+    public void warn(String message) {
+        writeLog(SeverityLevel.WARN, message);
+    }
+
+    public void warn(String message, Throwable t) {
+        writeLog(SeverityLevel.WARN, message, t);
+    }
+
+    public void info(String message) {
+        writeLog(SeverityLevel.INFO, message);
+    }
+
+    public void info(String message, Throwable t) {
+        writeLog(SeverityLevel.INFO, message, t);
+    }
+
+    public void debug(String message) {
+        writeLog(SeverityLevel.DEBUG, message);
+    }
+
+    public void debug(String message, Throwable t) {
+        writeLog(SeverityLevel.DEBUG, message, t);
     }
 }
