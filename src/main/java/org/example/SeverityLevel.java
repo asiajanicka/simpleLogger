@@ -1,3 +1,5 @@
+package org.example;
+
 public enum SeverityLevel {
     OFF(0),
     FATAL(1),
