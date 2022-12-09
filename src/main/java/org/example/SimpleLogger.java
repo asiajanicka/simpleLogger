@@ -91,4 +91,12 @@ public class SimpleLogger {
     public void debug(String message, Throwable t) {
         writeLog(SeverityLevel.DEBUG, message, t);
     }
+
+    public void trace(String message) {
+        writeLog(SeverityLevel.TRACE, message);
+    }
+
+    public void trace(String message, Throwable t) {
+        writeLog(SeverityLevel.TRACE, message, t);
+    }
 }

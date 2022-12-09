@@ -13,6 +13,7 @@ public class Animal {
         logger.warn("WARNING: My log message from print");
         logger.info("INFO: My log message from print");
         logger.debug("DEBUG MODE: My log message from print");
+        logger.trace("TRACE MODE: My log message from print");
     }
 
     public void printLogWithException() {
