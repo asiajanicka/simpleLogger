@@ -10,16 +10,24 @@ public class Cat extends Animal {
     }
 
     public void printLog() {
-        // add logging functions for all levels
-        logger.writeLog(SeverityLevel.ERROR, "My log message from print");
+        logger.fatal("FATAL: My log message from print");
+        logger.error("ERROR: My log message from print");
+        logger.warn("WARNING: My log message from print");
+        logger.info("INFO: My log message from print");
+        logger.debug("DEBUG MODE: My log message from print");
+        logger.trace("TRACE MODE: My log message from print");
     }
 
     public void printLogWithException() {
         try {
             throw new IllegalArgumentException();
         } catch (IllegalArgumentException e) {
-            // add logger.error(message, e)
-            logger.writeLog(SeverityLevel.ERROR, "My log message from print with exception", e);
+            logger.error("My log message from print with exception", e);
+        }
+        try {
+            throw new IllegalArgumentException();
+        } catch (IllegalArgumentException e) {
+            logger.warn("My log message from print with exception", e);
         }
     }
 
