@@ -3,16 +3,21 @@ package org.example.writers;
 import org.example.ConfigPropertiesReader;
 import org.example.utils.DateFormat;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.PrintStream;
 import java.time.LocalDateTime;
 
 public class ToLogFileWriter implements ILogWrite {
     private static ToLogFileWriter instance = null;
+    private PrintStream out;
 
     private ToLogFileWriter() {
+        try {
+            out = new PrintStream(new FileOutputStream(getFileName(), true));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static ToLogFileWriter getInstance() {
@@ -31,21 +36,18 @@ public class ToLogFileWriter implements ILogWrite {
     }
 
     @Override
-    public void write(String text) {
-        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(getFileName(), true)))) {
-            out.println(text);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void write(String message) {
+        out.println(message);
     }
 
     @Override
-    public void write(String text, Throwable t) {
-        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(getFileName(), true)))) {
-            out.println(text);
-            t.printStackTrace(out);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void write(String message, Throwable t) {
+        out.println(message);
+        t.printStackTrace(out);
+    }
+
+    @Override
+    protected void finalize() {
+        out.close();
     }
 }
