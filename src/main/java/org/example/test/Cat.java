@@ -1,6 +1,5 @@
 package org.example.test;
 
-import org.example.SeverityLevel;
 import org.example.SimpleLogger;
 
 public class Cat extends Animal {

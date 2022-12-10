@@ -4,8 +4,10 @@ import java.io.PrintStream;
 
 public class ToConsoleWriter implements ILogWrite {
     private static ToConsoleWriter instance = null;
+    private PrintStream out;
 
     private ToConsoleWriter() {
+        out = System.out;
     }
 
     public static ToConsoleWriter getInstance() {
@@ -15,14 +17,12 @@ public class ToConsoleWriter implements ILogWrite {
 
     @Override
     public void write(String message) {
-        PrintStream log = System.out;
-        log.println(message);
+        out.println(message);
     }
 
     @Override
     public void write(String message, Throwable e) {
-        PrintStream log = System.out;
-        log.println(message);
-        e.printStackTrace(log);
+        out.println(message);
+        e.printStackTrace(out);
     }
 }
